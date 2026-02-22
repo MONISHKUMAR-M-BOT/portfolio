@@ -1,0 +1,172 @@
+
+.glitch {
+    position: relative;
+    font-size: 4rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: glitchClear 3s ease forwards;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    opacity: 0.8;
+}
+
+.glitch::before {
+    color: #ff2ec6;
+    /* neon pink */
+    z-index: -1;
+    clip-path: inset(0 0 50% 0);
+    animation: glitchMove 0.3s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    color: #ff6a00;
+    /* neon orange */
+    z-index: -2;
+    clip-path: inset(50% 0 0 0);
+    animation: glitchMove 0.25s infinite linear alternate-reverse;
+}
+
+/* Subtitle glitch */
+.glitch-sub {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #ff2ec6;
+    /* Base color or keep gray initially? User code sets pink */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    animation: glitchClear 3s ease forwards;
+}
+
+.glitch-sub::before,
+.glitch-sub::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    opacity: 0.8;
+}
+
+.glitch-sub::before {
+    color: var(--text-white);
+    z-index: -1;
+    clip-path: inset(0 60% 0 0);
+    animation: glitchMove 0.4s infinite linear alternate-reverse;
+}
+
+.glitch-sub::after {
+    color: var(--neon-orange);
+    z-index: -2;
+    clip-path: inset(0 0 0 60%);
+    animation: glitchMove 0.3s infinite linear alternate-reverse;
+}
+
+
+/* Glitch movement */
+@keyframes glitchMove {
+    0% {
+        transform: translate(2px, -2px);
+    }
+
+    25% {
+        transform: translate(-2px, 2px);
+    }
+
+    50% {
+        transform: translate(3px, 1px);
+    }
+
+    75% {
+        transform: translate(-3px, -1px);
+    }
+
+    100% {
+        transform: translate(2px, 2px);
+    }
+}
+
+/* This makes glitch stop and become clear */
+@keyframes glitchClear {
+    0% {
+        filter: blur(2px);
+        opacity: 0.3;
+        transform: scale(1.05);
+        /* Slight pop */
+    }
+
+    40% {
+        filter: blur(1px);
+        opacity: 1;
+    }
+
+    100% {
+        filter: blur(0);
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Extra CSS (Stop Glitch after 2.5 seconds) */
+.glitch.clear::before,
+.glitch.clear::after,
+.glitch-sub.clear::before,
+.glitch-sub.clear::after {
+    animation: none;
+    opacity: 0;
+    display: none;
+}
+
+.glitch-sub.clear {
+    color: var(--text-gray);
+    /* Revert to normal subtitle color */
+    transition: color 0.5s;
+}
+
+/* Background Glitch */
+.hero.glitch-active::before {
+    animation: bgGlitch 0.2s infinite;
+}
+
+@keyframes bgGlitch {
+    0% {
+        transform: translate(0, 0);
+        filter: hue-rotate(0deg);
+    }
+
+    20% {
+        transform: translate(-2px, 2px);
+        filter: hue-rotate(90deg);
+    }
+
+    40% {
+        transform: translate(-2px, -2px);
+        filter: hue-rotate(0deg);
+    }
+
+    60% {
+        transform: translate(2px, 2px);
+        filter: hue-rotate(-90deg);
+    }
+
+    80% {
+        transform: translate(2px, -2px);
+        filter: hue-rotate(0deg);
+    }
+
+    100% {
+        transform: translate(0, 0);
+        filter: hue-rotate(0deg);
+    }
+}
